@@ -47,13 +47,9 @@
 </section>
 <main class="wrap">
   <section class="subcard">
-    <span class="tag">پیشنهادی</span>
     <h2>لینک اشتراک (Subscription)</h2>
-    <p>این لینک را یک‌بار در برنامه اضافه کن. هر بار لیست عوض شود، برنامه خودش به‌روزش می‌کند.</p>
-    <div class="urlbox" id="subUrl">…</div>
-    <div class="row"><button class="pri" id="cpSub"><svg class="i"><use href="#ic-c"/></svg>کپی لینک اشتراک</button><button class="gh sq" id="qrSub" title="QR" aria-label="نمایش QR"><svg class="i"><use href="#ic-q"/></svg></button></div>
-    <a class="btn gh" id="subApp" href="#" hidden style="margin-top:10px;width:100%"><svg class="i"><use href="#ic-b"/></svg>افزودن مستقیم به v2rayNG</a>
-    <button class="linkbtn" id="cpRaw">لینک جایگزین (اگر لینک اصلی باز نشد)</button>
+    <p>یک‌بار در برنامه اضافه کن؛ هر بار لیست منبع عوض شود، برنامه خودش به‌روزش می‌کند.</p>
+    <div id="subs"><div class="sub">در حال آماده‌سازی…</div></div>
   </section>
   <section class="appcard" id="app">
     <div><span class="tag">پیشنهاد ما برای اندروید</span><h3>v2rayNG</h3></div>
@@ -82,13 +78,50 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="common.js"></script>
 <script>
-const SUB=BASE+'sub.txt',SUB_RAW='https://raw.githubusercontent.com/asardari8633-code/proxy/main/sub.txt',PAGE=24;
+const PAGE=24,SUB=BASE+'sub.txt',SUB_RAW='https://raw.githubusercontent.com/asardari8633-code/proxy/main/sub.txt';
+const SRC=[
+ {name:'SS44-sub',urls:['https://raw.githubusercontent.com/ZendanTeam/SS44-sub/main/SS44-gold.txt','https://cdn.jsdelivr.net/gh/ZendanTeam/SS44-sub@main/SS44-gold.txt']},
+ {name:'PulseConfigs',urls:['https://raw.githubusercontent.com/drmikecrypto/PulseConfigs/main/verified/configs_base64.txt','https://cdn.jsdelivr.net/gh/drmikecrypto/PulseConfigs@main/verified/configs_base64.txt']}];
 const PN={vless:'VLESS',vmess:'VMess',trojan:'Trojan',ss:'Shadowsocks'},NETN={tcp:'TCP',ws:'WebSocket',grpc:'gRPC',xhttp:'XHTTP',h2:'HTTP/2'};
 const F={all:['همه',()=>true],reality:['Reality',i=>i.s==='reality'],tls:['TLS',i=>i.s==='tls'],vless:['VLESS',i=>i.p==='vless'],vmess:['VMess',i=>i.p==='vmess'],trojan:['Trojan',i=>i.p==='trojan'],ss:['SS',i=>i.p==='ss']};
-let items=[],data=null,filter='all',q='',shown=PAGE,list=[];
+const ANDROID=/Android/i.test(navigator.userAgent);
+let items=[],data=null,hasOurs=false,filter='all',q='',shown=PAGE,list=[],sortBy='best',TOP=new Set(),SUBS=[];
+/* ---------- خواندن مستقیم دو مخزن ---------- */
+function b64(s){try{s=decodeURIComponent(s)}catch(e){}s=s.replace(/-/g,'+').replace(/_/g,'/').replace(/[^A-Za-z0-9+/]/g,'');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)))}
+function H(s){let a=0x811c9dc5;for(let i=0;i<s.length;i++)a=Math.imul(a^s.charCodeAt(i),16777619);return (a>>>0).toString(36)}
+const truthy=v=>['1','true'].includes(String(v||'').toLowerCase());
+function expand(t){if(/(vmess|vless|trojan|ss):\/\//.test(t.slice(0,3000)))return t;try{return b64(t)}catch(e){return''}}
+function pVmess(r){const j=JSON.parse(b64(r.split('#')[0])),tls=String(j.tls||'').toLowerCase()==='tls';return{h:String(j.add||'').trim(),pt:parseInt(j.port),cred:String(j.id||'').trim().toLowerCase(),n:String(j.net||'tcp'),s:tls?'tls':'none',bad:!!(tls&&j['skip-cert-verify']),name:j.ps||''}}
+function pUrl(p,r){const u=new URL(p+'://'+r),q=new URLSearchParams([...u.searchParams].map(([k,v])=>[k.toLowerCase(),v]));let name='';try{name=decodeURIComponent(u.hash.slice(1))}catch(e){}
+  return{h:u.hostname.replace(/^\[|\]$/g,''),pt:parseInt(u.port),cred:decodeURIComponent(u.username||''),n:(q.get('type')||'tcp').toLowerCase(),s:(q.get('security')||(p==='trojan'?'tls':'none')).toLowerCase(),bad:truthy(q.get('allowinsecure'))||truthy(q.get('insecure')),name}}
+function pSs(r){const body=r.split('#')[0].split('?')[0];let ui,hp;
+  if(body.includes('@')){const i=body.lastIndexOf('@');ui=body.slice(0,i);hp=body.slice(i+1);try{ui=decodeURIComponent(ui)}catch(e){}if(!ui.includes(':'))ui=b64(ui)}else{const d=b64(body),i=d.lastIndexOf('@');ui=d.slice(0,i);hp=d.slice(i+1)}
+  const k=ui.indexOf(':'),j=hp.lastIndexOf(':');let name='';try{name=decodeURIComponent(r.split('#')[1]||'')}catch(e){}
+  return{h:hp.slice(0,j).replace(/^\[|\]$/g,''),pt:parseInt(hp.slice(j+1)),cred:ui.slice(k+1),method:ui.slice(0,k).toLowerCase(),n:'tcp',s:'none',bad:false,name}}
+const GOOD_SS=['aes-128-gcm','aes-256-gcm','chacha20-ietf-poly1305','xchacha20-ietf-poly1305'],WEAK=['shadowsocks','password','123456','test'];
+function bad(c){if(!c.h||!c.cred||!(c.pt>0&&c.pt<65536))return true;
+  if(/^(10\.|127\.|0\.|169\.254\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|192\.0\.2\.|198\.51\.100\.|203\.0\.113\.)/.test(c.h))return true;
+  if(c.bad)return true;
+  if(c.p==='vless'&&!['tls','reality'].includes(c.s))return true;
+  if(c.p==='trojan'&&c.s!=='tls')return true;
+  if(c.p==='ss'&&(!(GOOD_SS.includes(c.method)||c.method.startsWith('2022-'))||WEAK.includes(c.cred.toLowerCase())))return true;return false}
+function parseLine(line,src){line=line.trim();const m=/^(vmess|vless|trojan|ss):\/\/(.+)$/i.exec(line);if(!m||/\s/.test(line.split('#')[0]))return null;
+  const p=m[1].toLowerCase();let c;try{c=p==='vmess'?pVmess(m[2]):p==='ss'?pSs(m[2]):pUrl(p,m[2])}catch(e){return null}
+  c.p=p;if(bad(c))return null;c.l=line;c.src=src;c.name=c.name||(PN[p]+' '+c.h);return c}
+async function getText(urls){for(const u of urls){try{const c=new AbortController(),t=setTimeout(()=>c.abort(),12000);const r=await fetch(u,{signal:c.signal});clearTimeout(t);if(!r.ok)continue;const x=await r.text();if(x.trim())return x}catch(e){}}return null}
+async function loadDirect(){const seen=new Set(),out=[],texts=await Promise.all(SRC.map(s=>getText(s.urls)));
+  texts.forEach((t,i)=>expand(t||'').split(/\r?\n/).forEach(l=>{const c=parseLine(l,SRC[i].name);if(!c)return;const k=c.p+'|'+c.h.toLowerCase()+'|'+c.pt+'|'+c.cred;if(seen.has(k))return;seen.add(k);c.id=H(k);out.push(c)}));
+  const rk={reality:0,tls:1};out.sort((a,b)=>(rk[a.s]??2)-(rk[b.s]??2));
+  return out.map(c=>({id:c.id,p:c.p,h:c.h,pt:c.pt,n:c.n,s:c.s,src:c.src,name:c.name,l:c.l}))}
+/* ---------- لینک‌های اشتراک ---------- */
+function renderSubs(){SUBS=[];if(hasOurs)SUBS.push({t:'اشتراک ترکیبی Nexora Core',d:'هر دو منبع، پاک‌سازی‌شده و با نام یکدست',u:SUB,a:SUB_RAW,star:1});
+  SRC.forEach((s,i)=>SUBS.push({t:'اشتراک '+fa(i+1)+' — '+s.name,d:i?'فایل base64؛ برنامه‌ها آن را عادی می‌خوانند':'لیست متنی',u:s.urls[0],a:s.urls[1]}));
+  $('subs').innerHTML=SUBS.map((x,i)=>`<div class="subrow"><div class="subt">${x.star?'<span class="tag">پیشنهادی</span> ':''}<b>${esc(x.t)}</b><small>${esc(x.d)}</small></div><div class="urlbox">${esc(x.u)}</div>
+    <div class="row"><button class="pri" data-sc="${i}">${I('c')}کپی لینک اشتراک</button>${ANDROID?`<a class="btn gh" href="${esc('v2rayng://install-sub?url='+encodeURIComponent(x.u))}">${I('b')}افزودن به v2rayNG</a>`:''}<button class="gh sq" data-sq="${i}" title="QR" aria-label="نمایش QR">${I('q')}</button></div>
+    <button class="linkbtn" data-sa="${i}">لینک جایگزین (اگر باز نشد)</button></div>`).join('')}
+/* ---------- کارت‌ها ---------- */
 function ago(t){const m=Math.max(0,Math.floor((Date.now()/1000-t)/60)),h=Math.floor(m/60),d=Math.floor(h/24);return m<2?'همین حالا':m<60?fa(m)+' دقیقه پیش':h<24?fa(h)+' ساعت پیش':fa(d)+' روز پیش'}
 function chips(){$('chips').innerHTML=Object.keys(F).filter(k=>k==='all'||items.some(F[k][1])).map(k=>`<button class="chip ${k===filter?'on':''}" data-k="${k}">${F[k][0]}<small>${fa(items.filter(F[k][1]).length)}</small></button>`).join('')}
-const ANDROID=/Android/i.test(navigator.userAgent);let sortBy='best',TOP=new Set();
 const band=m=>m<=150?'g':m<=350?'o':'x';
 const ping=m=>m?`<span class="ping ${band(m)}" title="پینگ از سرورهای ما؛ پینگ واقعی را داخل برنامه ببین">${I('b')}${fa(m)}ms</span>`:'';
 const dl=l=>'v2rayng://install-config?url='+encodeURIComponent(l);
@@ -99,27 +132,30 @@ function card(it,i){const sec=it.s==='reality'||it.s==='tls'?`<span class="sec $
     <div class="srv">${esc(it.h)}:${esc(it.pt)}</div>
     <div class="meta">${esc(NETN[it.n]||String(it.n).toUpperCase())} · منبع: ${esc(it.src)}</div>
     <div class="acts">${ANDROID?`<a class="btn open" href="${esc(dl(it.l))}">${I('b')}افزودن به v2rayNG</a>`:''}${cp}<button class="ic" data-qr="${esc(it.id)}" title="QR" aria-label="نمایش QR">${I('q')}</button></div></article>`}
-function render(){list=items.filter(F[filter][1]).filter(i=>!q||(i.h+' '+i.p+' '+i.n+' '+i.s+' '+i.pt).toLowerCase().includes(q));if(sortBy==='ping')list=[...list].sort((a,b)=>(a.ms||1e9)-(b.ms||1e9));
-  $('grid').innerHTML=list.length?list.slice(0,shown).map(card).join(''):`<div class="empty">${I('s')}<b>${items.length?'چیزی پیدا نشد':'لیست هنوز آماده نیست'}</b><span>${items.length?'جستجو یا فیلتر را عوض کن':'چند دقیقه بعد دوباره سر بزن، یا لینک اشتراک را مستقیم استفاده کن.'}</span></div>`;
+function render(){list=items.filter(F[filter][1]).filter(i=>!q||(i.h+' '+i.p+' '+i.n+' '+i.s+' '+i.pt+' '+i.src).toLowerCase().includes(q));if(sortBy==='ping')list=[...list].sort((a,b)=>(a.ms||1e9)-(b.ms||1e9));
+  $('grid').innerHTML=list.length?list.slice(0,shown).map(card).join(''):`<div class="empty">${I('s')}<b>${items.length?'چیزی پیدا نشد':'دریافت لیست ممکن نشد'}</b><span>${items.length?'جستجو یا فیلتر را عوض کن':'اینترنت را بررسی کن و صفحه را رفرش کن؛ یا لینک‌های اشتراک بالا را مستقیم در برنامه بگذار.'}</span></div>`;
   $('more').hidden=list.length<=shown;if(!$('more').hidden)$('more').textContent='نمایش بیشتر ('+fa(list.length-shown)+')';
   $('cpAll').hidden=!list.length;$('cpAll').lastChild.textContent='کپی همه‌ی '+(filter==='all'&&!q?'کانفیگ‌ها':'این لیست')+' ('+fa(list.length)+')'}
-async function load(){
+async function load(){let j=null;
   for(const u of ['configs.json','https://raw.githubusercontent.com/asardari8633-code/proxy/main/configs.json']){
-    try{const c=new AbortController(),t=setTimeout(()=>c.abort(),9000);const r=await fetch(u,{cache:'no-store',signal:c.signal});clearTimeout(t);if(!r.ok)continue;const j=await r.json();if(j&&Array.isArray(j.items)&&j.items.length){data=j;items=j.items;TOP=new Set(items.slice(0,3).map(x=>x.id));break}}catch(e){}}
-  $('sT').textContent=fa(items.length);$('sR').textContent=fa(items.filter(F.reality[1]).length);$('sU').textContent=data&&data.updated?ago(data.updated):'—';
-  $('st').textContent=items.length?'پینگ از سرورهای ما؛ پینگ واقعی را داخل برنامه ببین':'';chips();render()}
-document.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;
-  if(b.dataset.sort){sortBy=b.dataset.sort;[...$('seg').children].forEach(x=>x.classList.toggle('on',x===b));shown=PAGE;render()}
-  else if(b.dataset.k){filter=b.dataset.k;shown=PAGE;chips();render()}
-  else if(b.dataset.cp){const it=items.find(x=>x.id===b.dataset.cp);if(it)toast(await copy(it.l)?'کانفیگ کپی شد ✓':'کپی نشد')}
-  else if(b.dataset.qr){const it=items.find(x=>x.id===b.dataset.qr);if(it)showQR(it.name,it.l)}
+    try{const c=new AbortController(),t=setTimeout(()=>c.abort(),9000);const r=await fetch(u,{cache:'no-store',signal:c.signal});clearTimeout(t);if(!r.ok)continue;const x=await r.json();if(x&&Array.isArray(x.items)&&x.items.length){j=x;break}}catch(e){}}
+  if(j){data=j;items=j.items;hasOurs=true}else{items=await loadDirect()}
+  TOP=new Set(items.slice(0,3).map(x=>x.id));
+  $('sT').textContent=fa(items.length);$('sR').textContent=fa(items.filter(F.reality[1]).length);$('sU').textContent=hasOurs&&data.updated?ago(data.updated):'مستقیم';
+  $('seg').hidden=!items.some(x=>x.ms);
+  $('st').textContent=!items.length?'':hasOurs?'پینگ از سرورهای ما؛ پینگ واقعی را داخل برنامه ببین':'کانفیگ‌ها مستقیم از دو مخزن منبع خوانده شدند';
+  renderSubs();chips();render()}
+document.addEventListener('click',async e=>{const b=e.target.closest('button');if(!b)return;const d=b.dataset;
+  if(d.sort){sortBy=d.sort;[...$('seg').children].forEach(x=>x.classList.toggle('on',x===b));shown=PAGE;render()}
+  else if(d.k){filter=d.k;shown=PAGE;chips();render()}
+  else if(d.cp){const it=items.find(x=>x.id===d.cp);if(it)toast(await copy(it.l)?'کانفیگ کپی شد ✓':'کپی نشد')}
+  else if(d.qr){const it=items.find(x=>x.id===d.qr);if(it)showQR(it.name,it.l)}
+  else if(d.sc!==undefined){toast(await copy(SUBS[+d.sc].u)?'لینک اشتراک کپی شد ✓':'کپی نشد')}
+  else if(d.sq!==undefined){showQR(SUBS[+d.sq].t,SUBS[+d.sq].u)}
+  else if(d.sa!==undefined){toast(await copy(SUBS[+d.sa].a)?'لینک جایگزین کپی شد ✓':'کپی نشد')}
   else if(b.id==='more'){shown+=PAGE;render()}
-  else if(b.id==='cpAll'){toast(await copy(list.map(x=>x.l).join('\n'))?fa(list.length)+' کانفیگ کپی شد ✓':'کپی نشد')}
-  else if(b.id==='cpSub'){toast(await copy(SUB)?'لینک اشتراک کپی شد ✓':'کپی نشد')}
-  else if(b.id==='cpRaw'){toast(await copy(SUB_RAW)?'لینک جایگزین کپی شد ✓':'کپی نشد')}
-  else if(b.id==='qrSub'){showQR('لینک اشتراک',SUB)}});
+  else if(b.id==='cpAll'){toast(await copy(list.map(x=>x.l).join('\n'))?fa(list.length)+' کانفیگ کپی شد ✓':'کپی نشد')}});
 $('q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();shown=PAGE;render()});
-$('subUrl').textContent=SUB;if(ANDROID){$('subApp').href='v2rayng://install-sub?url='+encodeURIComponent(SUB);$('subApp').hidden=false}
 setupShare('v2ray.html','🛡️ کانفیگ رایگان تحریم‌شکن (VLESS / VMess / Trojan / SS)\n\n✅ فقط یک لینک اشتراک رو توی برنامه بچسبون\n✅ خودکار به‌روز می‌شه\n✅ رایگان، بدون ثبت‌نام و بدون تبلیغ');
 load();
 </script>

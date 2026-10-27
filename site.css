@@ -143,3 +143,6 @@ dialog[open]{animation:pop .3s cubic-bezier(.2,1.1,.3,1)}@keyframes pop{from{opa
 .appcard{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding:20px;border-radius:22px;background:var(--sf);border:1px solid var(--ln)}
 .appcard h3{margin:2px 0 0;font-size:1.25rem;direction:ltr;text-align:right}.appcard p{margin:0;color:var(--mut);font-size:.86rem}
 .appcard .row{flex-wrap:wrap}.appcard .row .btn{flex:1;min-width:170px}.appcard small{color:var(--mut);font-size:.78rem}.appcard small a{color:var(--ac);font-weight:700;text-decoration:none}
+.subrow{padding:14px 0;border-top:1px solid var(--ln)}.subrow:first-child{border-top:0;padding-top:4px}
+.subt{display:flex;flex-direction:column;gap:2px;margin-bottom:8px}.subt small{color:var(--mut);font-size:.8rem}
+.subrow .row{margin-top:10px;flex-wrap:wrap}.subrow .row .pri{flex:1;min-width:150px}
