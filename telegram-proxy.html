@@ -3,122 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d12">
-<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
-<meta property="og:title" content="پروکسی تلگرام | nexoraict"><meta property="og:description" content="لیست زنده‌ی پروکسی‌های MTProto تلگرام؛ رایگان و همیشه بروز"><meta property="og:type" content="website"><meta property="og:url" content="https://asardari8633-code.github.io/proxy/telegram-proxy.html"><meta property="og:image" content="https://asardari8633-code.github.io/proxy/logo.jpg"><meta property="og:image:width" content="1280"><meta property="og:image:height" content="720"><meta name="twitter:card" content="summary_large_image">
-<title>پروکسی تلگرام | nexoraict</title>
+<meta name="theme-color" content="#0a090f">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="logo-mark.png"><link rel="apple-touch-icon" href="icon-192.png">
+<meta property="og:title" content="پروکسی تلگرام | Nexora Core"><meta property="og:description" content="لیست زنده‌ی پروکسی‌های MTProto تلگرام؛ رایگان و همیشه بروز"><meta property="og:type" content="website"><meta property="og:url" content="https://asardari8633-code.github.io/proxy/telegram-proxy.html"><meta property="og:image" content="https://asardari8633-code.github.io/proxy/logo.jpg"><meta property="og:image:width" content="1280"><meta property="og:image:height" content="720"><meta name="twitter:card" content="summary_large_image">
+<title>پروکسی تلگرام | Nexora Core</title>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root{color-scheme:dark light;--bg:#0b0d12;--sf:#12151c;--sf2:#1a1e28;--ln:#242a37;--tx:#eef1f6;--mut:#8a93a6;--ac:#2aabee;--ok:#34d399;--vi:#a78bfa;--wn:#fbbf24;--sh:0 1px 2px rgba(0,0,0,.4)}
-@media(prefers-color-scheme:light){:root{--bg:#f5f7fb;--sf:#fff;--sf2:#eef1f6;--ln:#e3e7ef;--tx:#11151d;--mut:#667085;--ac:#1d8fd1;--ok:#0f9d6b;--vi:#7c5ce0;--wn:#c98a00;--sh:0 1px 2px rgba(16,24,40,.06)}}
-[hidden]{display:none!important}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth;scroll-padding-top:150px}
-body{margin:0;background:var(--bg);color:var(--tx);font:400 15px/1.7 Vazirmatn,system-ui,sans-serif;min-height:100vh;background-image:radial-gradient(700px 320px at 50% -80px,color-mix(in srgb,var(--ac) 22%,transparent),transparent)}
-.wrap{max-width:1080px;margin:0 auto;padding:0 18px}
-.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
-button,.btn,input{font:inherit;color:inherit}
-button{cursor:pointer}
-.top{display:flex}
-header.nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:max(16px,env(safe-area-inset-top));padding-bottom:6px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px;direction:ltr}
-.brand img{width:34px;height:34px;border-radius:10px}
-.nav nav{display:flex;align-items:center;gap:8px}
-.lk,.live{display:inline-flex;align-items:center;gap:6px;height:36px;padding:0 14px;border-radius:99px;background:var(--sf);border:1px solid var(--ln);color:var(--tx);text-decoration:none;font-size:.82rem;font-weight:600;box-shadow:var(--sh)}
-.lk:hover{border-color:var(--ac);color:var(--ac)}
-.live{color:var(--mut)}.live b{color:var(--tx);font-weight:700;font-variant-numeric:tabular-nums}
-.live i{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 var(--ok);animation:pl 2s infinite}
-@keyframes pl{70%,100%{box-shadow:0 0 0 7px transparent}}
-.hero{text-align:center;padding:42px 18px 26px}
-.hero h1{margin:0;font-size:clamp(2rem,6vw,3.1rem);font-weight:900;line-height:1.25;letter-spacing:-.5px}
-.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--ac),var(--vi));-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{margin:8px 0 22px;color:var(--mut)}
-.stats{display:inline-flex;gap:6px;padding:6px;border-radius:18px;background:var(--sf);border:1px solid var(--ln);box-shadow:var(--sh)}
-.stat{min-width:92px;padding:6px 14px;border-radius:12px;text-align:center}
-.stat+.stat{border-right:1px solid var(--ln);border-radius:0}
-.stat b{display:block;font-size:1.35rem;font-weight:800;line-height:1.4;font-variant-numeric:tabular-nums}
-.stat span{font-size:.75rem;color:var(--mut)}
-.bar{position:sticky;top:0;z-index:5;padding:10px 0 8px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid transparent}
-.row{display:flex;gap:8px;align-items:center}
-.sb{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:46px;padding:0 14px;border-radius:14px;background:var(--sf);border:1px solid var(--ln);color:var(--mut)}
-.sb:focus-within{border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
-.sb input{flex:1;min-width:0;border:0;outline:0;background:none;color:var(--tx)}
-.sb input::-webkit-search-cancel-button{display:none}
-.btn,.pri,.gh,.hot{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:46px;padding:0 18px;border-radius:14px;border:1px solid transparent;font-weight:700;font-size:.9rem;text-decoration:none;transition:.18s;white-space:nowrap}
-.pri,.hot{background:var(--ac);color:#fff}.pri:hover,.hot:hover{filter:brightness(1.1)}
-.gh{background:var(--sf);border-color:var(--ln);color:var(--tx)}.gh:hover{border-color:var(--ac)}
-.sq{width:46px;padding:0}
-.chips{margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}.chips::-webkit-scrollbar{display:none}
-.chip{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 14px;border-radius:99px;background:transparent;border:1px solid var(--ln);color:var(--mut);font-size:.82rem;font-weight:600;white-space:nowrap}
-.chip:hover{color:var(--tx)}.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}.chip small{opacity:.65;font-size:.72rem}
-.chip .i{width:15px;height:15px}
-.sub{margin-top:6px;font-size:.78rem;color:var(--mut)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:14px}
-.card{--k:var(--ac);padding:16px;border-radius:20px;background:var(--sf);border:1px solid var(--ln);box-shadow:var(--sh);transition:border-color .2s,transform .2s;animation:in .45s both}
-.card.na{animation:none}.card:hover{border-color:color-mix(in srgb,var(--k) 55%,var(--ln));transform:translateY(-2px)}
-.card.k-dd{--k:var(--vi)}.card.k-plain{--k:var(--wn)}
-@keyframes in{from{opacity:0;transform:translateY(12px)}}
-.card .top{justify-content:space-between;align-items:center}
-.kind{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:99px;font-size:.76rem;font-weight:700;color:var(--k);background:color-mix(in srgb,var(--k) 13%,transparent)}
-.kind i{width:6px;height:6px;border-radius:50%;background:var(--k)}
-.star{width:34px;height:34px;margin:-4px;display:grid;place-items:center;border:0;border-radius:10px;background:none;color:var(--mut)}
-.star:hover{background:var(--sf2)}.star.on{color:var(--wn)}.star.on .i{fill:currentColor}
-.srv{margin:14px 0 2px;direction:ltr;text-align:left;font-weight:700;font-size:1.02rem;overflow-wrap:anywhere;line-height:1.45}
-.meta{color:var(--mut);font-size:.8rem}
-.acts{display:flex;gap:8px;margin-top:16px}
-.acts .btn{flex:1;height:44px;padding:0 12px}
-.btn.open{background:var(--ac);color:#fff}.btn.open:hover{filter:brightness(1.1)}
-.btn.done{background:color-mix(in srgb,var(--ok) 13%,transparent);border-color:color-mix(in srgb,var(--ok) 40%,transparent);color:var(--ok)}
-.ic{width:44px;height:44px;display:grid;place-items:center;padding:0;border-radius:12px;background:var(--sf2);border:1px solid var(--ln);color:var(--mut)}
-.ic:hover{color:var(--tx);border-color:var(--ac)}
-.skl{display:block;border-radius:10px;background:linear-gradient(90deg,var(--sf2) 25%,var(--ln) 50%,var(--sf2) 75%);background-size:200% 100%;animation:shn 1.3s linear infinite;height:14px;margin:10px 0}@keyframes shn{to{background-position:-200% 0}}
-.empty{grid-column:1/-1;text-align:center;color:var(--mut);padding:44px 10px;display:grid;justify-items:center;gap:6px}.empty .i{width:38px;height:38px;opacity:.6}.empty b{color:var(--tx)}
-.more{display:flex;margin:22px auto 0}
-/* راهنما */
-.guide{margin-top:64px;padding-bottom:20px}
-.guide h2{margin:0;font-size:1.6rem;font-weight:900}.guide>p{margin:4px 0 22px;color:var(--mut)}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.step{padding:18px;border-radius:20px;background:var(--sf);border:1px solid var(--ln)}
-.step em{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:color-mix(in srgb,var(--ac) 15%,transparent);color:var(--ac);font:800 .9rem Vazirmatn;font-style:normal}
-.step h3{margin:12px 0 4px;font-size:1rem}.step p{margin:0;color:var(--mut);font-size:.86rem}
-.guide h4{margin:30px 0 12px;font-size:1rem}
-.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
-.ty{padding:14px 16px;border-radius:16px;background:var(--sf);border:1px solid var(--ln);font-size:.85rem;color:var(--mut)}
-.ty b{display:block;color:var(--k);font-size:.92rem;margin-bottom:2px}
-.faq{display:grid;gap:8px}
-details{border-radius:16px;background:var(--sf);border:1px solid var(--ln)}
-summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:700;font-size:.92rem;display:flex;justify-content:space-between;gap:12px}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";color:var(--mut);font-weight:400;font-size:1.3rem;line-height:1;transition:.2s}
-details[open] summary:after{transform:rotate(45deg)}
-details p{margin:0;padding:0 18px 16px;color:var(--mut);font-size:.86rem}
-footer{text-align:center;color:var(--mut);font-size:.78rem;padding:40px 16px 48px}
-footer b{color:var(--tx)}.igl{display:inline-flex;align-items:center;gap:6px;margin-top:6px;color:var(--ac);text-decoration:none;font-weight:700;direction:ltr}.igl:hover{text-decoration:underline}
-dialog{border:1px solid var(--ln);border-radius:24px;padding:24px;background:var(--sf);color:var(--tx);text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.45);width:min(92vw,340px)}
-dialog::backdrop{background:rgba(5,8,14,.6);backdrop-filter:blur(5px)}
-dialog[open]{animation:pop .3s cubic-bezier(.2,1.1,.3,1)}@keyframes pop{from{opacity:0;transform:translateY(16px) scale(.95)}}
-#qr{background:#fff;padding:12px;border-radius:16px;display:inline-block;margin:14px 0 8px;min-height:60px}#qr img,#qr canvas{display:block;max-width:100%;height:auto}
-#sup{width:min(92vw,410px);padding:0;overflow:hidden}
-#sup .bn{aspect-ratio:16/9;background:#05070c}#sup .bn img{width:100%;height:100%;object-fit:cover;display:block}
-#sup .bd{padding:18px 22px 20px}
-#sup h2{margin:0 0 4px;font-size:1.2rem;font-weight:900}#sup p{margin:0 0 8px;color:var(--mut);font-size:.86rem}
-#sup .id{display:inline-block;direction:ltr;margin:2px 0 14px;padding:1px 14px;border-radius:99px;background:var(--sf2);color:var(--ac);font-weight:700;font-size:.88rem}
-#sup .go{width:100%;color:#fff;background:linear-gradient(45deg,#f09433,#dc2743,#bc1888)}
-#sup .r2{display:flex;gap:8px;margin-top:8px}#sup .r2 button{flex:1}
-#supHint{margin-top:10px;font-size:.8rem;color:var(--wn);background:color-mix(in srgb,var(--wn) 12%,transparent);border-radius:12px;padding:6px 10px}
-.toast{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));left:50%;transform:translate(-50%,16px);max-width:90vw;background:var(--tx);color:var(--bg);padding:10px 20px;border-radius:99px;opacity:0;transition:.25s;pointer-events:none;z-index:30;font-size:.85rem;font-weight:600;text-align:center;box-shadow:0 14px 40px rgba(0,0,0,.35)}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.kg{display:flex;align-items:center;gap:6px}
-.new{height:22px;padding:0 9px;border-radius:99px;font-size:.7rem;font-weight:800;line-height:22px;color:#fff;background:var(--ok)}
-.age{margin-top:2px;color:var(--mut);font-size:.76rem}
-.sub2{justify-content:space-between;margin-top:6px}.sub2 .sub{margin:0;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.seg{display:inline-flex;flex:none;background:var(--sf);border:1px solid var(--ln);border-radius:99px;padding:2px}
-.seg button{border:0;background:none;color:var(--mut);height:26px;padding:0 10px;border-radius:99px;font-size:.74rem;font-weight:600}
-.seg .on{background:var(--tx);color:var(--bg)}
-@media(max-width:480px){.d{display:none}.seg button{padding:0 8px}}
-@media(max-width:640px){.hero{padding-top:28px}.stat{min-width:0;flex:1;padding:6px 10px}.stats{display:flex;width:100%}.live{display:none}.hot span{display:none}.hot{width:46px;padding:0}.grid{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="ic-s" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
@@ -141,9 +31,10 @@ dialog[open]{animation:pop .3s cubic-bezier(.2,1.1,.3,1)}@keyframes pop{from{opa
 <symbol id="ic-in" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></symbol>
 <symbol id="ic-bk" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v15H6a2 2 0 0 0-2 2zM4 20a2 2 0 0 0 2 2h13M8 7h7"/></symbol><symbol id="ic-sh" viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></symbol></svg>
 <header class="wrap nav">
-  <a class="brand" href="./"><img src="icon-192.png" alt="" width="34" height="34">nexoraict</a>
-  <nav><a class="lk" href="#guide"><svg class="i"><use href="#ic-bk"/></svg>راهنما</a><button class="lk" id="shr" aria-label="اشتراک لینک سایت"><svg class="i"><use href="#ic-sh"/></svg>اشتراک<span class="d"> سایت</span></button><span class="live"><i></i>بروزرسانی بعدی <b id="cd">۳۰:۰۰</b></span></nav>
+  <a class="brand" href="./"><img src="logo-mark.png" alt="" width="34" height="34"><span class="bt">Nexora Core</span></a>
+  <nav><button class="lk" id="shr" aria-label="اشتراک لینک سایت"><svg class="i"><use href="#ic-sh"/></svg>اشتراک<span class="d"> سایت</span></button><span class="live"><i></i>بروزرسانی بعدی <b id="cd">۳۰:۰۰</b></span></nav>
 </header>
+<nav class="tabs" aria-label="بخش‌ها"><a href="telegram-proxy.html" aria-current="page">پروکسی تلگرام</a><a href="v2ray.html">تحریم‌شکن</a><a href="guide.html">راهنما</a></nav>
 <section class="hero">
   <h1>پروکسی <em>تلگرام</em></h1>
   <p>لیست زنده‌ی MTProto؛ یک لمس تا اتصال</p>
@@ -165,33 +56,10 @@ dialog[open]{animation:pop .3s cubic-bezier(.2,1.1,.3,1)}@keyframes pop{from{opa
 <main class="wrap">
   <div class="grid" id="grid"></div>
   <button class="gh more" id="more" hidden>نمایش بیشتر</button>
-  <section class="guide" id="guide">
-    <h2>راهنمای استفاده</h2>
-    <p>در سه قدم به تلگرام وصل شو.</p>
-    <div class="steps">
-      <div class="step"><em>۱</em><h3>یک پروکسی انتخاب کن</h3><p>از لیست بالا یکی را بردار؛ نوع FakeTLS معمولاً بهتر کار می‌کند. اگر مردد بودی «اتصال تصادفی» را بزن.</p></div>
-      <div class="step"><em>۲</em><h3>«اتصال در تلگرام» را بزن</h3><p>تلگرام باز می‌شود و تأیید می‌خواهد؛ گزینه‌ی Connect Proxy یا Enable را بزن.</p></div>
-      <div class="step"><em>۳</em><h3>وضعیت را در تلگرام ببین</h3><p>مسیر Settings ← Data and Storage ← Proxy. اگر وصل نشد، پروکسی دیگری را امتحان کن.</p></div>
-    </div>
-    <h4>تفاوت نوع‌ها</h4>
-    <div class="types">
-      <div class="ty" style="--k:var(--ac)"><b>FakeTLS</b>ترافیک را شبیه HTTPS معمولی نشان می‌دهد و سخت‌تر شناسایی می‌شود. پیشنهاد اول.</div>
-      <div class="ty" style="--k:var(--vi)"><b>Secure</b>ترافیک رمزگذاری‌شده با پیشوند dd؛ تعادل خوبی بین سرعت و پنهان‌سازی.</div>
-      <div class="ty" style="--k:var(--wn)"><b>ساده</b>سبک و سریع ولی بدون پوشش؛ در شبکه‌های سخت‌گیر ممکن است مسدود شود.</div>
-    </div>
-    <h4>سؤال‌های پرتکرار</h4>
-    <div class="faq">
-      <details><summary>تلگرام باز نشد، چه کنم؟</summary><p>مطمئن شو تلگرام نصب است. اگر باز هم باز نشد، با دکمه‌ی کپی لینک را بردار و در تلگرام باز کن، یا با دوربین گوشی QR را اسکن کن.</p></details>
-      <details><summary>چرا اینجا پینگ نشان داده نمی‌شود؟</summary><p>مرورگر اجازه‌ی اتصال مستقیم به پورت پروکسی را ندارد. بعد از افزودن پروکسی، خود تلگرام وضعیت و پینگ را با اینترنت تو در بخش Proxy نشان می‌دهد.</p></details>
-      <details><summary>«اضافه شده» یعنی چه؟</summary><p>بعد از زدن «اتصال در تلگرام»، کارت علامت می‌گیرد و به انتهای لیست می‌رود تا دوباره سراغش نروی. اگر پروکسی را از تلگرام پاک کردی، دکمه‌ی ↺ علامت را برمی‌دارد.</p></details>
-      <details><summary>وصل شد ولی کند است یا قطع می‌شود</summary><p>این‌ها پروکسی‌های عمومی‌اند و ممکن است شلوغ یا ناپایدار باشند. چند پروکسی را امتحان کن و بهترین پینگ را نگه دار. لیست هر ۱۲ ساعت از منبع بروز می‌شود و سایت هر ۳۰ دقیقه آن را دوباره می‌گیرد.</p></details>
-      <details><summary>استفاده از آن‌ها امن است؟</summary><p>پروکسی نمی‌تواند محتوای پیام‌های رمزگذاری‌شده‌ی تلگرام را بخواند، ولی آی‌پی تو و حجم ترافیکت را می‌بیند. پروکسی عمومی را مثل شبکه‌ی عمومی در نظر بگیر و برای کارهای حساس به آن تکیه نکن.</p></details>
-    </div>
-  </section>
 </main>
-<footer>منبع: SoliSpirit/mtproto · ساخته‌شده توسط <b>nexoraict</b><br><a class="igl" href="https://instagram.com/nexora.ict" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#ic-ig"/></svg>@nexora.ict</a></footer>
+<footer>منبع: SoliSpirit/mtproto · ساخته‌شده توسط <b>Nexora Core</b><br><a class="igl" href="https://instagram.com/nexora.ict" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#ic-ig"/></svg>@nexora.ict</a></footer>
 <dialog id="dlg"><div id="qrT" style="font-weight:700;direction:ltr;overflow-wrap:anywhere"></div><div id="qr"></div><div style="font-size:.85rem;color:var(--mut)">با دوربین گوشی اسکن کنید</div><br><button class="pri" id="close" style="width:100%">بستن</button></dialog>
-<dialog id="sup" aria-labelledby="supT"><div class="bn"><img src="logo.jpg" alt="nexoraict" width="1280" height="720"></div><div class="bd"><h2 id="supT">از ما حمایت کنید</h2><p>این سرویس رایگانه و با پیج اینستاگرامِ ما زنده می‌مونه. فالو کردن شما یعنی انگیزه برای ادامه.</p><span class="id">@nexora.ict</span><a class="btn go" id="supGo" href="https://instagram.com/nexora.ict" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#ic-ig"/></svg>فالو در اینستاگرام</a><div class="r2"><button class="pri" id="supInst" hidden><svg class="i"><use href="#ic-b"/></svg>نصب وب‌اپ</button><button class="gh" id="supClose">بستن</button></div><div id="supHint" hidden></div></div></dialog>
+<dialog id="sup" aria-labelledby="supT"><div class="bn"><img src="logo.jpg" alt="Nexora Core" width="1280" height="720"></div><div class="bd"><h2 id="supT">از ما حمایت کنید</h2><p>این سرویس رایگانه و با پیج اینستاگرامِ ما زنده می‌مونه. فالو کردن شما یعنی انگیزه برای ادامه.</p><span class="id">@nexora.ict</span><a class="btn go" id="supGo" href="https://instagram.com/nexora.ict" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#ic-ig"/></svg>فالو در اینستاگرام</a><div class="r2"><button class="pri" id="supInst" hidden><svg class="i"><use href="#ic-b"/></svg>نصب وب‌اپ</button><button class="gh" id="supClose">بستن</button></div><div id="supHint" hidden></div></div></dialog>
 <div class="toast" id="toast" role="status"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
@@ -277,7 +145,7 @@ function shareInfo(){let site=SITE_URL||(/^https?:/.test(location.protocol)?loca
   if(!repo&&/\.github\.io$/.test(location.hostname)){const u=location.hostname.split('.')[0],seg=location.pathname.split('/')[1]||'';repo='https://github.com/'+u+'/'+(seg&&!/\.html$/.test(seg)?seg:u+'.github.io')}
   return{site,repo}}
 $('shr').onclick=async()=>{const {site,repo}=shareInfo();if(!site){toast('آدرس سایت مشخص نیست؛ این دکمه فقط روی سایت منتشرشده کار می‌کند');return}
-  const text='🚀 پروکسی تلگرام رایگان و همیشه بروز\nلیست زنده‌ی پروکسی‌های MTProto؛ یک لمس بزن تا به تلگرام وصل شود. بدون ثبت‌نام و بدون پرداخت.\n\n👇 لینک سایت:\n'+site+(repo?'\n\n🔓 کد این پروژه روی گیت‌هاب بازه و هر کسی می‌تونه بررسیش کنه:\n'+repo:'');
+  const text='🚀 تلگرامت کند یا قطعه؟ این لینک رو نگه دار!\n\n✅ لیست زنده‌ی پروکسی‌های تلگرام، همیشه بروز\n✅ یه لمس بزن، خودش وصل می‌شه\n✅ رایگان، بدون ثبت‌نام و بدون تبلیغ\n\n👇 همین الان امتحان کن:\n'+site+(repo?'\n\n🔓 شفاف و بدون پنهان‌کاری: کد کامل این سایت روی گیت‌هاب بازه و هر کسی می‌تونه ببینه داخلش چیه:\n'+repo:'');
   if(navigator.share){try{await navigator.share({title:'پروکسی تلگرام',text});return}catch(e){if(e&&e.name==='AbortError')return}}
   toast(await copy(text)?'متن و لینک کپی شد ✓':'کپی نشد')};
 setInterval(()=>{left--;if(left<=0){left=EVERY;load(true)}$('cd').textContent=fa(String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0'))},1000);
